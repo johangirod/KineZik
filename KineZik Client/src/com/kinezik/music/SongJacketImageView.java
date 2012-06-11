@@ -48,9 +48,9 @@ public class SongJacketImageView extends LinearLayout {
 		super(context, attrSet);
 		final String url = attrSet.getAttributeValue(null, "image");
 		if(url != null){
-			instantiate(context, url, android.R.attr.progressBarStyle, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, ImageView.ScaleType.CENTER);
+			instantiate(context, url, android.R.attr.progressBarStyle, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, ImageView.ScaleType.CENTER_INSIDE);
 		} else {
-			instantiate(context, null, android.R.attr.progressBarStyle, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, ImageView.ScaleType.CENTER);
+			instantiate(context, null, android.R.attr.progressBarStyle, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, ImageView.ScaleType.CENTER_INSIDE);
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class SongJacketImageView extends LinearLayout {
 	 * @param imageUrl the Image URL you wish to load
 	 */
 	public SongJacketImageView(final Context context, final String imageUrl) {
-		this(context, imageUrl, android.R.attr.progressBarStyle, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, ImageView.ScaleType.CENTER);
+		this(context, imageUrl, android.R.attr.progressBarStyle, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, ImageView.ScaleType.CENTER_INSIDE);
 	}
 	
 	/**
