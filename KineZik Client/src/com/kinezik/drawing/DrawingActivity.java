@@ -26,7 +26,7 @@ public class DrawingActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.drawing);
+		setContentView(R.layout.drawing_v2);
 		drawView = (DrawView) findViewById(R.id.drawView2);
 		drawView.setButtonLayout((LinearLayout) findViewById(R.id.drawingButtonsLayout));
 
