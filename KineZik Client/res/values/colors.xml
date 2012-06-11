@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+    <color name="gray">#DEDEDE</color>
+    <color name="blue">#000088</color>
+    <color name="transparentblue">#40000188</color>
+    <color name="transparentbutton">#80000000</color>
+    <color name="bluetransparent">#80000000</color>
+    <color name="black">#000000</color>
+    <color name="lightgray">#EEE8C8</color>
+    <color name="brown">#D9B686</color>
+    <color name="backgroundcolor">#A6B0FF</color>
+    <color name="toolbarcolor">#7C48B0</color>
+    <color name="drawingcolor">#BBF0ED</color>
+
+</resources>

@@ -1,0 +1,125 @@
+\documentclass[11pt]{article}
+
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{listings}
+\usepackage{graphicx}
+\lstset{
+  morekeywords={abort,abs,accept,access,all,and,array,at,begin,body,
+      case,constant,declare,delay,delta,digits,do,else,elsif,end,entry,
+      exception,exit,for,function,generic,goto,if,in,is,limited,loop,
+      mod,new,not,null,of,or,others,out,package,pragma,private,
+      procedure,raise,range,record,rem,renames,return,reverse,select,
+      separate,subtype,task,terminate,then,type,use,when,while,with,
+      xor,abstract,aliased,protected,requeue,tagged,until},
+  sensitive=f,
+  morecomment=[l]--,
+  morestring=[d]",
+  showstringspaces=false,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bf\small,
+  commentstyle=\itshape,
+  stringstyle=\sf,
+  extendedchars=true,
+  columns=[c]fixed
+}
+
+% CI-DESSOUS: conversion des caractères accentués UTF-8 
+% en caractères TeX dans les listings...
+\lstset{
+  literate=%
+  {À}{{\`A}}1 {Â}{{\^A}}1 {Ç}{{\c{C}}}1%
+  {à}{{\`a}}1 {â}{{\^a}}1 {ç}{{\c{c}}}1%
+  {É}{{\'E}}1 {È}{{\`E}}1 {Ê}{{\^E}}1 {Ë}{{\"E}}1% 
+  {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1%
+  {Ï}{{\"I}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1%
+  {ï}{{\"i}}1 {î}{{\^i}}1 {ô}{{\^o}}1%
+  {Ù}{{\`U}}1 {Û}{{\^U}}1 {Ü}{{\"U}}1%
+  {ù}{{\`u}}1 {û}{{\^u}}1 {ü}{{\"u}}1%
+}
+
+%%%%%%%%%%
+% TAILLE DES PAGES (A4 serré)
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex}
+\setlength{\textwidth}{17cm}
+\setlength{\textheight}{24cm}
+\setlength{\oddsidemargin}{-.7cm}
+\setlength{\evensidemargin}{-.7cm}
+\setlength{\topmargin}{-.5in}
+
+%%%%%%%%%%
+% EN-TÊTES ET PIED DE PAGES
+
+\pagestyle{fancyplain}
+\renewcommand{\headrulewidth}{0pt}
+\addtolength{\headheight}{1.6pt}
+\addtolength{\headheight}{2.6pt}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize\sf page~\thepage/\pageref{LastPage}}
+\lhead{\footnotesize\sf Projet de Spécialité}
+\rhead{\footnotesize\sf Application des réseaux bayésiens à l'application mobile KineZik }
+
+%%%%%%%%%%
+% TITRE DU DOCUMENT
+
+\title{Document de cadrage }
+
+\author{ Johan Girod \\ Myriam G'sim \\ Victor Mours} 
+
+\date{30/05/2012}
+
+
+%%%%%%%
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction:}
+Aujourd'hui, l'écoute de la musique sur smartphone est considérée comme l'une des principales fonctionnalités que cherche l'utilisateur dans un téléphone. Beaucoup ont des centaines voire des milliers de morceaux sur leur smartphone. Cependant, la mémoire humaine ne suit pas toujours l'évolution croissante de cette capacité de stockage. Justement, ce projet consiste à mettre en place une application de recommandation de musique sur Android : \textbf{KineZik}.\\
+\textbf{KineZik} s'appuie sur un dessin que fait l'utilisateur sur son écran afin d'en extraire son état d'esprit et lui propose en fonction de cela la musique qui est en accord avec son humeur.
+Ce projet a d’abord été élaboré en cours de création d’entreprise et a suscité l’engouement du jury du trophée de l’entrepreneuriat 2012. Ce projet de spécialité est l’occasion de développer un prototype de l’application \textbf{KineZik}. 
+
+
+\section{Organisation}
+Le développement d'applications nécessite un contact continu avec le client . Celui-ci devra pouvoir donner son avis sur le produit tout au long de sa conception pour limiter le risque de non satisfaction lors du rendu final du produit.
+C'est pour cette raison que nous avons décidé d'aborder ce projet en adoptant la démarche agile.\\
+Nous sommes 3 personnes à travailler sur ce projet . Nous travaillons sous l’égide de Rémi Barraquand, chercheur à l’INRIA. Il nous apporte son expertise technique pour nous guider dans les choix technologiques. Il occupe également le rôle de product owner. C'est donc lui qui valide les rendus intermédiaires. Le projet s’étend sur une courte période (1 mois), nous livrons donc un rendu par semaine.\\
+Le projet est découpé en sprints. Un sprint est une période d’une semaine pendant laquelle l’équipe travaille sur un ensemble restreints d’objectifs. À la fin du sprint, une démo est faite au product owner. \\
+Conformément aux règles d'une démarche agile , nous avons commencé par découper notre projet en user-stories . Une user story décrit une fonctionnalité du produit fini. Elle est formulée sur le modèle “En tant que \textless rôle\textgreater je souhaite \textless réaliser une action\textgreater afin de \textless obtenir un gain\textgreater. Nous les avons ensuite hiérarchisé en fonction de leur intérêt pour l’utilisateur. Nous avons attribué des user-points à chacune d'elles.Un user-point est un moyen de traduire la complexité de la tâche.  Ensuite, pour chaque sprint, nous décomposons les user-stories associées en sous-tâches et nous estimons le nombre d’heures nécessaires pour chaque tâche.\\
+Chaque sous-tâche est écrite sur un post-it qui est collé sur un mur. Ce mur est décomposé en quatre colonnes : “A faire”, “En cours”, “A valider”, “Validé”. Les post-its sont déplacés progressivement et permettent d’avoir un aperçu de l’avancement du projet en un coup d’oeil. Cette méthode simplifie aussi la répartition du travail : chaque membre de l’équipe a un post-it qui lui est associé. Lorsqu’il a validé son post-it, il en choisit un autre dans la colonne “A faire”.\\
+Pour passer un de ses post-it de la colonne “A valider” à “Validé”, un membre de l’équipe doit obtenir la confirmation d’un collègue. Ainsi, le contrôle qualité est effectué en continu et les responsabilités sont partagées.\\
+Deux fois par jour, tout l’équipe se réunit pour un stand-up. Un stand-up est une réunion qui se fait debout autour du mur de post-it. Chaque membre de l’équipe explique aux autres ce qu’il a fait depuis le dernier stand-up et annonce ce qu’il fera jusqu’au prochain.\\
+
+
+\section{Objectifs}
+Notre objectif principal est d’avoir pour la fin du projet prévue le 14 juin, un prototype montrable à un investisseur potentiel et qui remplit donc l’ensemble des fonctionnalités de l’application. Nous cherchons à avoir en priorité une application pertinente qui fait bien le lien musique /dessin. Aussi ,l’application devra être simple à télécharger et à utiliser. Son interface devra alors être élégante sans pour autant être compliquée à manipuler par l’utilisateur.\\
+Nous chercherons dans un second temps à améliorer cette interface afin de  faire voir à l’utilisateur les différents paramètres qu’on prend en compte pour analyser son dessin (on changera par exemple l’épaisseur du dessin au fur et à mesure que l’utilisateur appuie pour faire son tracé pour lui faire voir qu'on mesure la pression qu'il exerce sur l'écran).\\
+Le dernier point que nous chercherons à atteindre, est de permettre à l’utilisateur de donner son retour sur la musique qu’on lui recommande.\\
+Il est aussi évident que nous chercherons tout au long de ce projet à respecter les délais intermédiaires de livraison.\\  
+
+ 
+
+\section{Périmètre}
+Le projet étant  quand-même long, une précision des périmètres serait utile afin de ne pas s’égarer de nos principaux objetcifs.\\
+La pertinence de l’application s’appuira sur la précision de l’analyse de la musique et du dessin .
+Néanmoins, et afin de respecter les délais, nous nous fixons seulement  trois paramètres sur lesquels nous allons nous appuyer pour analyser le dessin.\\
+De même , une analyse approfondie de la musique ne sera pas notre principale priorité.\\
+Dans un premier temps , seul le genre de la musique nous intéresse. Nous verrons avec notre product owner pour la suite du projet et en fonction du rythme de son évolution, à quel point irons-nous exactement dans l’analyse de la musique.\\
+ 
+
+
+\section{Indicateurs}
+Pour savoir si notre projet a été une réussite ou pas , nous utilisons différents indicateurs d'efficacité de travail et de qualité du produit. \\
+Le premier indicateur que nous utilisons est le burndown. Le burndown est une représentation graphique de la charge de toutes les tâches cumulées en fonction du temps.On lira donc pour un jour donné sur l'axe des abscisses, le temps qu'il nous reste pour traiter toues les tâches  sur l'axe des ordonnées.Idéalement, ce graphe est linéaire. Nous le tenons à jour à la fin de chaque sprint. Ceci nous donnera au final un graphe.C'est l'écart de ce graphe par rapport à l'idéal qui nous aidera à juger notre efficacité tout au long du projet. Et si nous avons décidé de nous appuyer sur un tel indicateur, c'est que le burndown a l'avantage de pouvoir être comparé a sa version idéale à tout moment du projet. Ceci nous aide à rattraper un retard éventuel à temps et à ne pas atendre la fin du projet pour voir justement qu'on est en retard.\\
+Pour estimer la qualité de notre produit, nous préparons une batterie de tests pour chaque fonctionnalité de l'application.Il est évident que nous chercherons à ce que tous les tests soient passés avec succés. Mais, nous chercherons également à ce que la couverture des tests soit maximale. Ceci renseigne sur le fait que le code qu'on a écrit traite ou pas tous les cas particuliers qui peuvent se représenter.\\
+ 
+\section{Conclusion}
+  Ce projet de spécialité est l'occasion pour nous de travailler sur une application qui a eu beaucoup d'écho en cours de création d'entreprise. Nous tenons donc à ce que ça soit aussi une réussite sur le plan technique.\\ 
+Nous sommes cependants conscients que sa réussite repose en grande partie sur l'aspect gestion de projet. C'est pour cette raison que nous employons toutes les méthodes possibles qui assurent une bonne entente au sein de l'équipe et qui  peuvent nous aider à identifier tôt nos erreurs.   
+\end{document}

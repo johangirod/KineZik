@@ -1,0 +1,69 @@
+
+
+----------------------------------
+--------- TUTO ENSIWIKI ----------
+----------------------------------
+
+Sous Unix/Linux
+
+Attention : Par sécurité, copiez le dossier .ssh à la racine de votre compte sur votre ordinateur pour revenir en arrière. Pour ce faire:
+
+$ cp -r ~/.ssh/ ~/.ssh-old/
+
+et pour restaurer en cas de soucis :
+
+$ rm -r ~/.ssh/
+$ mv ~/.ssh-old/ ~/.ssh/
+
+[modifier] Génération des clefs
+
+Sur votre machine, faîtes dans le dossier de votre choix:
+
+$ ssh-keygen -t rsa 
+
+Ce qui nous donne:
+
+guillaume@CentraServ:~$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/guillaume/.ssh/id_rsa):
+Created directory '/home/guillaume/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/guillaume/.ssh/id_rsa.
+Your public key has been saved in /home/guillaume/.ssh/id_rsa.pub.
+The key fingerprint is:
+xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx guillaume@CentraServ
+
+Deux fichiers sont alors créés dans le dossier .ssh/ à la racine de votre compte:
+
+    id_rsa contenant la clé privée à ne communiquer sous aucun prétexte ;
+    id_rsa.pub contenant la clé publique. 
+
+Pour la passphrase, vous pouvez décider de ne rien mettre, dans quel cas n'importe qui ayant accès à votre clé privée (i.e. accès à votre PC) pourra se connecter à tous les serveurs auxquels vous avez vous-même accès. Si vous utilisez une passphrase non vide, il peut être intéressant d'utiliser ssh-agent (voyez ci-dessous).
+[modifier] Enregistrement auprès du serveur sur lequel on veut se connecter
+
+Sur le serveur distant, allez dans le dossier .ssh/ à la racine de votre compte et créez ou éditez le fichier authorized_keys. Ajoutez-y à la fin le contenu du fichier id_rsa.pub.
+
+Par exemple, si vous voulez pouvoir vous identifier sur telesun, vous pourriez faire quelque chose comme :
+
+chezvous $ scp ~/.ssh/id_rsa.pub votrelogin@telesun.imag.fr:~/.ssh/id_rsa.pub.tmp
+chezvous $ ssh votrelogin@telesun.imag.fr
+telesun $ cat ~/.ssh/id_rsa.pub.tmp >>~/.ssh/authorized_keys
+telesun $ rm ~/.ssh/id_rsa.pub.tmp
+
+Déconnectez-vous, vous devriez pouvoir vous reconnecter en utilisant votre clef plutôt que votre mot de passe. Si vous aviez mis une passphrase tout à l'heure, elle vous sera demandée ici ; la différence avec un mot de passe est que la passphrase ne transite jamais sur le réseau ; elle est simplement utilisée localement pour décoder votre clef.
+[modifier] Ne pas avoir à retaper la passphrase
+
+Il est possible de n'entrer votre passphrase qu'une seule fois. Pour cela, nous allons utiliser ssh-agent. Faites simplement, au début de votre session :
+
+$ eval $(ssh-agent)    # démarre l'agent
+$ ssh-add              # ajoute votre clef
+
+Votre passphrase vous sera demandé une fois, et lors de vos connexions, celui-ci sera connu et vous n'aurez plus à le taper !
+
+Veuillez noter que la manipulation donnée ici n'est valide que dans une seule console ; si vous voulez le même comportement pour tout votre environnement graphique, il faudra vous débrouiller pour lancer ssh-agent avec votre bureau graphique ; les opérations spécifiques nécessaires varient d'un environnement à un autre. En pratique, la limitation de la seule console n'est pas trop handicapante (tant que vous ne la fermez pas par mégarde) : tous les programmes lancés depuis cette console seront sous l'effet du ssh-agent (p.ex. si vous utilisez Emacs avec /ssh:, vous avez tout intérêt à le lancer depuis la même console). 
+
+
+/!\ SI A LA FIN DE LA MANIP, LORS DE LA CONNEXION IL MET "Agent admitted failure to sign using the key.", EXECUTEZ LA COMMANDE COTE CLIENT : 
+
+ssh-add

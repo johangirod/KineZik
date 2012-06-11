@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context
+    antiJARLocking="true"
+    path="/" >
+
+    <Resource
+        name="jdbc/kinezik"
+        auth="Container"
+        driverClassName="com.mysql.jdbc.Driver"
+        maxActive="10"
+        maxIdle="3"
+        maxWait="10000"
+        password="GoGoGuicherd"
+        type="javax.sql.DataSource"
+        url="jdbc:mysql://localhost:3306/KineZik"
+        username="KineZik" />
+
+</Context>

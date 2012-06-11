@@ -1,0 +1,12 @@
+--<ScriptOptions statementTerminator=";"/>
+
+CREATE TABLE Installation (
+	UUID VARCHAR(32) NOT NULL,
+	PRIMARY KEY (UUID)
+) ENGINE=MyISAM;
+
+CREATE TABLE Instance (
+	UUID VARCHAR(32) NOT NULL,
+	PRIMARY KEY (UUID)
+) ENGINE=MyISAM;
+

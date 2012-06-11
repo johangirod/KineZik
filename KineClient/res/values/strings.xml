@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, KineZikActivity!</string>
+    <string name="app_name">KineZik Client</string>
+    <string name="drawing_invitation">Touch the screen to start drawing</string>
+   
+    
+</resources>
