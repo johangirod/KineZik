@@ -25,7 +25,7 @@ public class SongAdapter extends BaseAdapter {
 
 	LayoutInflater inflater;
 
-	public SongAdapter(Context context,List<LocalSong> songs) {
+	public SongAdapter(Context context, List<LocalSong> songs) {
 		inflater = LayoutInflater.from(context);
 		this.songs = songs;
 	}
@@ -45,48 +45,53 @@ public class SongAdapter extends BaseAdapter {
 		return position;
 	}
 
-	private class ViewHolder{
+	private class ViewHolder {
 		TextView titleView;
 		TextView artistView;
 		TextView fittingView;
-		TextView genreView ;
+		TextView genreView;
 		ImageView albumArtView;
 	}
 
 	@Override
-
 	public View getView(int position, View convertView, ViewGroup parent) {
-//		if (position>=songs.size()){
-//			throw new IllegalArgumentException();
-//		}
+		// if (position>=songs.size()){
+		// throw new IllegalArgumentException();
+		// }
 		ViewHolder holder;
-		if(convertView == null) {
+		if (convertView == null) {
 
 			holder = new ViewHolder();
 
 			convertView = inflater.inflate(R.layout.song_item, null);
 
+			holder.titleView = (TextView) convertView
+					.findViewById(R.id.titleTextView);
+			holder.artistView = (TextView) convertView
+					.findViewById(R.id.artistTextView);
+			holder.fittingView = (TextView) convertView
+					.findViewById(R.id.fittingTextView);
+			holder.genreView = (TextView) convertView
+					.findViewById(R.id.genreTextView);
+			holder.albumArtView = (ImageView) convertView
+					.findViewById(R.id.albumArtView);
 
-			holder.titleView = (TextView) convertView.findViewById(R.id.titleTextView);
-			holder.artistView = (TextView) convertView.findViewById(R.id.artistTextView);
-			holder.fittingView = (TextView) convertView.findViewById(R.id.fittingTextView);
-			holder.genreView = (TextView) convertView.findViewById(R.id.genreTextView);
-			holder.albumArtView = (ImageView) convertView.findViewById(R.id.albumArtView);
-		
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if (position == 0){
-			
-			holder.titleView.setText("[Lecture] "+songs.get(position).getTitle());
+		if (position == 0) {
+			holder.titleView.setText("[Lecture] "
+					+ songs.get(position).getTitle());
+			convertView.setBackgroundColor(R.color.backgroundcolor);
 		} else {
 			holder.titleView.setText(songs.get(position).getTitle());
+			convertView.setBackgroundColor(R.color.backgroundcolorlight);
 		}
 		holder.artistView.setText(songs.get(position).getArtist());
 		holder.fittingView.setText(songs.get(position).getFit());
-		holder.genreView.setText("Genre : " +songs.get(position).getGenre());
+		holder.genreView.setText("Genre : " + songs.get(position).getGenre());
 		ContentResolver res = parent.getContext().getContentResolver();
 		InputStream in;
 		try {
@@ -94,15 +99,12 @@ public class SongAdapter extends BaseAdapter {
 			Bitmap artwork = BitmapFactory.decodeStream(in);
 			holder.albumArtView.setImageBitmap(artwork);
 		} catch (FileNotFoundException e) {
-			Log.d("DEBUG","Album art not found");
+			Log.d("DEBUG", "Album art not found");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	
+
 		return convertView;
 
 	}
-
-
 }

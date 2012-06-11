@@ -11,6 +11,7 @@
     <color name="lightgray">#EEE8C8</color>
     <color name="brown">#D9B686</color>
     <color name="backgroundcolor">#A6B0FF</color>
+    <color name="backgroundcolorlight">#D6DBFF</color>
     <color name="toolbarcolor">#7C48B0</color>
     <color name="drawingcolor">#BBF0ED</color>
 
