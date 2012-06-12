@@ -66,9 +66,9 @@ public class FolkEval implements Evaluator {
 		}
 	}
 	private float distanceToRef(int i, int j, int k){
-		float x = i*BT.bayesMat.length;
-		float y = j*BT.bayesMat[0].length;
-		float z = k*BT.bayesMat[0][0].length;
+		float x = ((float) i)/BT.bayesMat.length;
+		float y = ((float) j)/BT.bayesMat[0].length;
+		float z = ((float) j)/BT.bayesMat[0][0].length;
 		float res = 0;
 		res+= Math.pow(REFERENCE_PEAK_VALUE - x, 2);
 		res+= Math.pow(REFERENCE_SPEED_VALUE - y, 2);
