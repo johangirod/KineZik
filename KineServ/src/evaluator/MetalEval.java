@@ -13,6 +13,14 @@ public class MetalEval implements Evaluator {
 	private static int id;
 	private static BayesianTable BT;
 
+	//Reference values for the typical point
+	private final static float REFERENCE_PEAK_VALUE = (float) 0.69;
+	private final static float REFERENCE_SPEED_VALUE = (float) 0.64;
+	private final static float REFERENCE_LENGTH_VALUE = (float) 0.75;
+
+	public MetalEval(){
+
+	}
 
 	@Override
 	public float evaluate(File mp3File) {
@@ -24,6 +32,7 @@ public class MetalEval implements Evaluator {
 			System.out.println("GENRE : "+ res);
 			if (res.contains("Metal") || 
 					res.contains("Metal") ) 
+
 			{
 				value = 1;
 			}
@@ -48,20 +57,31 @@ public class MetalEval implements Evaluator {
 	public void setId(int id) {
 		MetalEval.id = id;
 		// CREATE THE BAYESIAN TABLE
-		BayesianTable BT = new BayesianTable(5,5,5, id);
+		BT = new BayesianTable(5,5,5, id);
 		for(int i = 0 ; i<5 ; i++){
 			for (int j = 0; j<5; j++ ){
 				for (int k = 0; k<5; k++){
-					BT.bayesMat[i][j][k] = ((float) 0.5);
+					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j, k);
 				}
 			}
 		}
-		MetalEval.BT = BT;
+	}
+	
+	private float distanceToRef(int i, int j, int k){
+		float x = i*BT.bayesMat.length;
+		float y = j*BT.bayesMat[0].length;
+		float z = k*BT.bayesMat[0][0].length;
+		float res = 0;
+		res+= Math.pow(REFERENCE_PEAK_VALUE - x, 2);
+		res+= Math.pow(REFERENCE_SPEED_VALUE - y, 2);
+		res+= Math.pow(REFERENCE_LENGTH_VALUE - z, 2);
+		res /= 3;//to normalize
+		res = (float) Math.sqrt(res);
+		return 0;
 	}
 
 	@Override
 	public BayesianTable getBayesTable() {
 		return MetalEval.BT;
 	}
-
 }

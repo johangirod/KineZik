@@ -1,18 +1,20 @@
 package evaluator;
 
-import java.util.Iterator;
-
 import entagged.audioformats.AudioFile;
 
 public class StringTag{
 
 	public static String getStringGenres(AudioFile mp3){
-		String res = "";
-		Iterator<?> ite = mp3.getTag().getGenre().iterator();
-		while (ite.hasNext()){
-			res.concat((String) ite.next().toString());
+		String res = mp3.getTag().getFirstGenre();
+		res.replace("(", "");
+		res.replace(")", "");
+		if (res.length() != 0 &&  res.matches("[0-9]*")){
+			Integer genreInt = Integer.decode(res);
+			if (genreInt < entagged.audioformats.Tag.DEFAULT_GENRES.length) {	
+				res = entagged.audioformats.Tag.DEFAULT_GENRES[genreInt];
+			}
 		}
 		return res;
 	}
-	
+
 }
