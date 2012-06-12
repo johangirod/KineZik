@@ -26,7 +26,9 @@ public class FeedbackDAO {
 				feedbacks.add(cur.getString(0));
 			} while(cur.moveToNext());
 		}
-		db.rawQuery("DELETE FROM Feedbacks;", null);
+		db.close();
+		db = helper.getWritableDatabase();
+		db.delete("Feedbacks", null, null);
 		db.close();
 		return feedbacks;
 	}

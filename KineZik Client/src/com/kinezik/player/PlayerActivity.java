@@ -111,7 +111,6 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 
 
 	public void onPushNext(View v){
-		Log.d("DEBUG", "Valeur de player : " + player);
 		if (songs.isEmpty()){
 			Toast.makeText(this, "il n'y a plus de musique à jouer", Toast.LENGTH_LONG).show();
 			return;

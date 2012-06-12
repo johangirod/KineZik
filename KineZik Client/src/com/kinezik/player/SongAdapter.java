@@ -56,8 +56,6 @@ public class SongAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Log.d("DEBUG", "Call to getView for the position : " + position + " and the song : " + songs.get(position).getTitle());
-		
 		
 		View vi = convertView;
 		ViewHolder vh;
