@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,9 @@ import com.kinezik.music.LocalSong;
 
 public class SongAdapter extends BaseAdapter {
 
+	static int fade = 70;
+	
 	List<LocalSong> songs;
-
 	LayoutInflater inflater;
 
 	public SongAdapter(Context context, List<LocalSong> songs) {
@@ -55,56 +57,56 @@ public class SongAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// if (position>=songs.size()){
-		// throw new IllegalArgumentException();
-		// }
-		ViewHolder holder;
-		if (convertView == null) {
+		View vi = convertView;
+		ViewHolder vh;
+		
+		if( convertView == null ) {
+			vh = new ViewHolder();
 
-			holder = new ViewHolder();
-
-			convertView = inflater.inflate(R.layout.song_item, null);
-
-			holder.titleView = (TextView) convertView
-					.findViewById(R.id.titleTextView);
-			holder.artistView = (TextView) convertView
-					.findViewById(R.id.artistTextView);
-			holder.fittingView = (TextView) convertView
-					.findViewById(R.id.fittingTextView);
-			holder.genreView = (TextView) convertView
-					.findViewById(R.id.genreTextView);
-			holder.albumArtView = (ImageView) convertView
-					.findViewById(R.id.albumArtView);
-
-			convertView.setTag(holder);
+			vi = inflater.inflate(R.layout.song_item, null);
+			vh.titleView = (TextView) vi.findViewById(R.id.titleTextView);
+			vh.artistView = (TextView) vi.findViewById(R.id.artistTextView);
+			vh.fittingView = (TextView) vi.findViewById(R.id.fittingTextView);
+			vh.genreView = (TextView) vi.findViewById(R.id.genreTextView);
+			vh.albumArtView = (ImageView) vi.findViewById(R.id.albumArtView);
+			vi.setTag(vh);
 		} else {
-			holder = (ViewHolder) convertView.getTag();
+			vh = (ViewHolder) vi.getTag();
 		}
 
 		if (position == 0) {
-			holder.titleView.setText("[Lecture] "
-					+ songs.get(position).getTitle());
-			convertView.setBackgroundColor(R.color.backgroundcolor);
+			//vi.setMinimumHeight(240); // not nice at all
+			vh.titleView.setText(songs.get(position).getTitle());
+			vh.albumArtView.setAlpha(99); // setting 100 do not work as expected!
 		} else {
-			holder.titleView.setText(songs.get(position).getTitle());
-			convertView.setBackgroundColor(R.color.backgroundcolorlight);
+			//vi.setMinimumHeight(200);
+			vh.titleView.setText(songs.get(position).getTitle());
+			vh.albumArtView.setAlpha(fade);
+			vh.titleView.setTextColor(fadeColor(vh.titleView.getCurrentTextColor(), fade));
+			vh.artistView.setTextColor(fadeColor(vh.artistView.getCurrentTextColor(), fade));
+			vh.fittingView.setTextColor(fadeColor(vh.fittingView.getCurrentTextColor(), fade));
+			vh.genreView.setTextColor(fadeColor(vh.genreView.getCurrentTextColor(), fade));
 		}
-		holder.artistView.setText(songs.get(position).getArtist());
-		holder.fittingView.setText(songs.get(position).getFit());
-		holder.genreView.setText("Genre : " + songs.get(position).getGenre());
+		
+		vh.artistView.setText(songs.get(position).getArtist());
+		vh.fittingView.setText(songs.get(position).getFit());
+		vh.genreView.setText("Genre : " + songs.get(position).getGenre());
 		ContentResolver res = parent.getContext().getContentResolver();
 		InputStream in;
 		try {
 			in = res.openInputStream(songs.get(position).getUriAlbum());
 			Bitmap artwork = BitmapFactory.decodeStream(in);
-			holder.albumArtView.setImageBitmap(artwork);
+			vh.albumArtView.setImageBitmap(artwork);
 		} catch (FileNotFoundException e) {
 			Log.d("DEBUG", "Album art not found");
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return convertView;
+		return vi;
 
+	}
+	
+	int fadeColor(int color, int alpha) {
+		return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
 	}
 }
