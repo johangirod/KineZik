@@ -28,9 +28,11 @@ public class MetalEval implements Evaluator {
 		AudioFile mp3;
 		try {
 			mp3 = AudioFileIO.read(mp3File);
-			System.out.println("GENRE : "+ mp3.getTag().getFirstGenre());
-			if (mp3.getTag().getFirstGenre().contains("Metal") || 
-					mp3.getTag().getFirstGenre().contains("metal") ) 
+			String res = StringTag.getStringGenres(mp3);
+			System.out.println("GENRE : "+ res);
+			if (res.contains("Metal") || 
+					res.contains("Metal") ) 
+
 			{
 				value = 1;
 			}
@@ -55,7 +57,7 @@ public class MetalEval implements Evaluator {
 	public void setId(int id) {
 		MetalEval.id = id;
 		// CREATE THE BAYESIAN TABLE
-		BayesianTable BT = new BayesianTable(5,5,5, id);
+		BT = new BayesianTable(5,5,5, id);
 		for(int i = 0 ; i<5 ; i++){
 			for (int j = 0; j<5; j++ ){
 				for (int k = 0; k<5; k++){
@@ -63,7 +65,6 @@ public class MetalEval implements Evaluator {
 				}
 			}
 		}
-		MetalEval.BT = BT;
 	}
 	
 	private float distanceToRef(int i, int j, int k){

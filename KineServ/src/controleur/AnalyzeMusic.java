@@ -17,10 +17,8 @@ import dao.EvaluatorDAO;
 import dao.InitBaseDAO;
 import dao.SongDAO;
 import entagged.audioformats.exceptions.CannotReadException;
-import evaluator.DurationEval;
 import evaluator.EvaluatorSet;
-import evaluator.IndieEval;
-import evaluator.RockEval;
+import evaluator.*;
 import evaluator.ServerSong;
 
 /**
@@ -61,8 +59,9 @@ public class AnalyzeMusic extends HttpServlet {
 
 		EvaluatorSet evalsSet = new EvaluatorSet();
 		evalsSet.addEvaluator(new RockEval());
-		evalsSet.addEvaluator(new IndieEval());
-		evalsSet.addEvaluator(new DurationEval());
+		evalsSet.addEvaluator(new FolkEval());
+		evalsSet.addEvaluator(new MetalEval());
+		evalsSet.addEvaluator(new AmbientEval());
 		EvaluatorDAO evalDAO = new EvaluatorDAO(ds);
 		try {
 			evalDAO.saveEvaluators(evalsSet);
@@ -70,9 +69,15 @@ public class AnalyzeMusic extends HttpServlet {
 			log(e1.getMessage());
 		}
 
-		//2 : GET THE MP3 FILES 
-
-		File dir = new File("/media/Packard Bell/Users/JohanG/Music");
+		
+		
+		
+		
+		
+		
+		
+		
+		File dir = new File("/home/johan/Musique/");
 
 		// The list of files can also be retrieved as File objects
 		File[] files = dir.listFiles();
@@ -113,7 +118,59 @@ public class AnalyzeMusic extends HttpServlet {
 						"n'est pas un fichier MP3 (ou a des mauvais tags):");
 			}
 		}
-
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		//2 : GET THE MP3 FILES 
+//
+//		dir = new File("/media/Packard Bell/Users/JohanG/Music");
+//
+//		// The list of files can also be retrieved as File objects
+//		files = dir.listFiles();
+//
+//		//select only file (and not directory)
+//		 fileFilter = new FileFilter() {
+//			public boolean accept(File file) {
+//				return file.isFile();
+//			}
+//		};
+//
+//		files = dir.listFiles(fileFilter);
+//		if (files == null){
+//			throw new IOException("Le dossier n'existe pas");
+//		}
+//
+//		//3 : FOR EACH MP3 FILE, CREATE A SONG, EVALUATE IT, PUT IT IN THE BD
+//
+//		for (int i = 0; i < files.length; i++){
+//			ServerSong song;
+//			try {
+//				System.out.println(files[i].getName());
+//				song = new ServerSong(files[i]);
+//				evalsSet.evaluateSong(song);
+//
+//				// On ajoute la chanson dans la BD ^^
+//				SongDAO songDao = new SongDAO(ds);
+//
+//				songDao.saveSong(song);
+//				log("La chanson " + song.toString() +" a été ajoutée dans la base de donnée");
+//			} catch (DAOException e) {
+//				log("Impossible d'ajouter la chanson dans la base de donnée :" + e.getMessage());
+//			} catch (IOException e1) {
+//				log("Le fichier " + files[i].getName() +
+//					"a eu un probleme de lecture");
+//			} catch (CannotReadException e2) {
+//				log("Le fichier " + files[i].getName() +
+//						"n'est pas un fichier MP3 (ou a des mauvais tags):");
+//			}
+//		}
+//
 	}
 
 	/**

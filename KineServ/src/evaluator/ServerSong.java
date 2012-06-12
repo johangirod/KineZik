@@ -17,7 +17,7 @@ public class ServerSong extends Song {
 		super.album = mp3.getTag().getFirstAlbum();
 		super.artist = mp3.getTag().getFirstArtist();
 		super.title = mp3.getTag().getFirstTitle();
-		super.setGenre(mp3.getTag().getFirstGenre());
+		super.setGenre(StringTag.getStringGenres(mp3));
 		this.mp3File = mp3File; 
 	}
 

@@ -18,9 +18,6 @@ public class RockEval implements Evaluator {
 	private final static float REFERENCE_SPEED_VALUE = (float) 0.33;
 	private final static float REFERENCE_LENGTH_VALUE = (float) 0.62;
 
-	public RockEval(){
-
-	}
 
 	@Override
 	public float evaluate(File mp3File) {
@@ -28,9 +25,10 @@ public class RockEval implements Evaluator {
 		AudioFile mp3;
 		try {
 			mp3 = AudioFileIO.read(mp3File);
-			System.out.println("GENRE : "+ mp3.getTag().getFirstGenre());
-			if (mp3.getTag().getFirstGenre().contains("Rock") || 
-					mp3.getTag().getFirstGenre().contains("rock") ) 
+			String res = StringTag.getStringGenres(mp3);
+			System.out.println("GENRE : "+ res);
+			if (res.contains("Rock") || 
+					res.contains("rock") ) 
 			{
 				value = 1;
 			}
@@ -55,7 +53,7 @@ public class RockEval implements Evaluator {
 	public void setId(int id) {
 		RockEval.id = id;
 		// CREATE THE BAYESIAN TABLE
-		BayesianTable BT = new BayesianTable(5,5,5, id);
+		BT = new BayesianTable(5,5,5, id);
 		for(int i = 0 ; i<5 ; i++){
 			for (int j = 0; j<5; j++ ){
 				for (int k = 0; k<5; k++){
@@ -63,7 +61,6 @@ public class RockEval implements Evaluator {
 				}
 			}
 		}
-		RockEval.BT = BT;
 	}
 	
 	private float distanceToRef(int i, int j, int k){

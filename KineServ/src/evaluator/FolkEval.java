@@ -27,9 +27,10 @@ public class FolkEval implements Evaluator {
 		AudioFile mp3;
 		try {
 			mp3 = AudioFileIO.read(mp3File);
-			System.out.println("GENRE : "+ mp3.getTag().getFirstGenre());
-			if (mp3.getTag().getFirstGenre().contains("Folk") || 
-					mp3.getTag().getFirstGenre().contains("folk") ) 
+			String res = StringTag.getStringGenres(mp3);
+			System.out.println("GENRE : "+ res);
+			if (res.contains("Folk") || 
+					res.contains("folk") ) 
 			{
 				value = 1;
 			}
@@ -54,17 +55,16 @@ public class FolkEval implements Evaluator {
 	public void setId(int id) {
 		FolkEval.id = id;
 		// CREATE THE BAYESIAN TABLE
-		BayesianTable BT = new BayesianTable(5,5,5, id);
+		BT = new BayesianTable(5,5,5, id);
 		for(int i = 0 ; i<5 ; i++){
 			for (int j = 0; j<5; j++ ){
 				for (int k = 0; k<5; k++){
+
 					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j, k);
 				}
 			}
 		}
-		FolkEval.BT = BT;
 	}
-	
 	private float distanceToRef(int i, int j, int k){
 		float x = i*BT.bayesMat.length;
 		float y = j*BT.bayesMat[0].length;
@@ -82,4 +82,5 @@ public class FolkEval implements Evaluator {
 	public BayesianTable getBayesTable() {
 		return FolkEval.BT;
 	}
+
 }
