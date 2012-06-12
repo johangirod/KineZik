@@ -2,6 +2,7 @@ package com.kinezik.player;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -41,6 +42,7 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 
 	ListView songList;
 	Button playButton;
+	SongAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,7 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 							songs.add(curSong);
 						}
 					}
-					SongAdapter adapter = new SongAdapter(PlayerActivity.this, songs);
+					adapter = new SongAdapter(PlayerActivity.this, songs);
 					songList.setAdapter(adapter);
 					if(player != null){
 						player.loadAndPlay(songs.get(0).getUri());
@@ -107,20 +109,30 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 
 
 	public void onPushNext(View v){
-		if (! songs.isEmpty()){
-			songs.remove(0);
-			LocalSong song = kinezikService.getNextSong();
-			if (song != null){
-				songs.add(song);
-				if(player != null){
-					player.loadAndPlay(songs.get(0).getUri());
-				}
-				SongAdapter adapter = new SongAdapter(PlayerActivity.this, songs);
-				songList.setAdapter(adapter);
-			}
-		} else {
+		Log.d("DEBUG", "Valeur de player : " + player);
+		if (songs.isEmpty()){
 			Toast.makeText(this, "il n'y a plus de musique à jouer", Toast.LENGTH_LONG).show();
+			return;
 		}
+		songs.remove(0);
+		LocalSong song = kinezikService.getNextSong();
+		if (song != null){
+			songs.add(song);
+		}
+		if(player != null){
+			if(songs.isEmpty()){
+				player.pause();
+			} else {
+				Iterator<LocalSong> iter = songs.iterator();
+				if(iter.hasNext()){
+					player.loadAndPlay(iter.next().getUri());
+				}
+			}
+		}
+		if(songs.size()==1){
+			v.setVisibility(View.INVISIBLE);//If there is only one song left, hide the "next" button
+		}
+		adapter.notifyDataSetChanged();
 	}
 
 	public void onThumbUp(View v){

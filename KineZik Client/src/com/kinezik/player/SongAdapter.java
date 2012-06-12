@@ -22,7 +22,6 @@ import com.kinezik.music.LocalSong;
 
 public class SongAdapter extends BaseAdapter {
 
-	static int fade = 70;
 	
 	List<LocalSong> songs;
 	LayoutInflater inflater;
@@ -57,6 +56,9 @@ public class SongAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		Log.d("DEBUG", "Call to getView for the position : " + position + " and the song : " + songs.get(position).getTitle());
+		
+		
 		View vi = convertView;
 		ViewHolder vh;
 		
@@ -74,20 +76,18 @@ public class SongAdapter extends BaseAdapter {
 			vh = (ViewHolder) vi.getTag();
 		}
 
-		if (position == 0) {
-			//vi.setMinimumHeight(240); // not nice at all
-			vh.titleView.setText(songs.get(position).getTitle());
-			vh.albumArtView.setAlpha(99); // setting 100 do not work as expected!
-		} else {
-			//vi.setMinimumHeight(200);
-			vh.titleView.setText(songs.get(position).getTitle());
-			vh.albumArtView.setAlpha(fade);
-			vh.titleView.setTextColor(fadeColor(vh.titleView.getCurrentTextColor(), fade));
-			vh.artistView.setTextColor(fadeColor(vh.artistView.getCurrentTextColor(), fade));
-			vh.fittingView.setTextColor(fadeColor(vh.fittingView.getCurrentTextColor(), fade));
-			vh.genreView.setTextColor(fadeColor(vh.genreView.getCurrentTextColor(), fade));
-		}
 		
+		int fade = 255;
+		if(position != 0){
+			fade = Math.max(90, 150 - 20*position);
+		}
+		vh.titleView.setText(songs.get(position).getTitle());
+		vh.albumArtView.setAlpha(fade);
+		vh.titleView.setTextColor(fadeColor(vh.titleView.getCurrentTextColor(), fade));
+		vh.artistView.setTextColor(fadeColor(vh.artistView.getCurrentTextColor(), fade));
+		vh.fittingView.setTextColor(fadeColor(vh.fittingView.getCurrentTextColor(), fade));
+		vh.genreView.setTextColor(fadeColor(vh.genreView.getCurrentTextColor(), fade));
+
 		vh.artistView.setText(songs.get(position).getArtist());
 		vh.fittingView.setText(songs.get(position).getFit());
 		vh.genreView.setText("Genre : " + songs.get(position).getGenre());
