@@ -23,6 +23,7 @@
             android:layout_margin="10dp"
             android:layout_weight="0.81"
             android:text="KineZik"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
@@ -30,7 +31,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:background="@drawable/kicon_menulist_blue"
+            android:background="@drawable/kicon_menulist_v2"
             android:padding="10dp" />
     </LinearLayout>
 
@@ -46,7 +47,7 @@
             android:id="@+id/button2"
             android:layout_width="151dp"
             android:layout_height="152dp"
-            android:background="@drawable/draw"
+            android:background="@drawable/draw_v2"
             android:onClick="draw"
             android:padding="100dp"
             android:text="Draw" />

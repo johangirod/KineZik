@@ -23,6 +23,7 @@
             android:layout_margin="10dp"
             android:layout_weight="0.81"
             android:text="KineZik"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
@@ -30,14 +31,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:background="@drawable/kicon_menulist_blue"
+            android:background="@drawable/kicon_menulist_v2"
             android:padding="10dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/drawingcolor"
+        android:background="@drawable/drawing_background"
         android:gravity="center"
         android:layout_weight="1">
 
@@ -55,7 +56,8 @@
 
         <LinearLayout
             android:id="@+id/eraseButtonsLayout"
-            android:layout_width="227dp"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="left" >
 
@@ -77,7 +79,7 @@
 
         <LinearLayout
             android:id="@+id/playButtonsLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/transparentblue"
             android:gravity="right" >
@@ -87,7 +89,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/kicon_lect"
+                android:background="@drawable/kicon_lect_v2"
                 android:onClick="play"
                 android:padding="10dp" />
         </LinearLayout>
