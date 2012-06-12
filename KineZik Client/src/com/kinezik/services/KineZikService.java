@@ -122,7 +122,7 @@ public class KineZikService extends IntentService implements ServiceListener {
 		this.desc1 = desc1;
 		this.desc2 = desc2;
 		this.desc3 = desc3;
-
+		computedSongs= new TreeSet<LocalSong>();
 		songListComputed = false;
 		new Thread(new Runnable() {
 			public void run() {
@@ -160,6 +160,7 @@ public class KineZikService extends IntentService implements ServiceListener {
 		while(iteListener.hasNext()) {
 			iteListener.next().onServiceReady();
 		}
+		computedSongListener.clear();
 	}
 
 

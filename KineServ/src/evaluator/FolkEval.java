@@ -12,14 +12,13 @@ public class FolkEval implements Evaluator {
 	private static int id;
 	private static BayesianTable BT;
 
-	//Reference values for the typical point
-	private final static float REFERENCE_PEAK_VALUE = (float) 0.29;
-	private final static float REFERENCE_SPEED_VALUE = (float) 0.28;
-	private final static float REFERENCE_LENGTH_VALUE = (float) 0.56;
-	
-	public FolkEval(){
 
-	}
+	//Reference values for the typical point
+	private final static float REFERENCE_PEAK_VALUE = (float) 0.1;
+	private final static float REFERENCE_SPEED_VALUE = (float) 0.30;
+	private final static float REFERENCE_LENGTH_VALUE = (float) 0.40;
+
+
 
 	@Override
 	public float evaluate(File mp3File) {
@@ -29,9 +28,9 @@ public class FolkEval implements Evaluator {
 			mp3 = AudioFileIO.read(mp3File);
 			String res = StringTag.getStringGenres(mp3);
 			System.out.println("GENRE : "+ res);
-			if (res.contains("Folk") || 
-					res.contains("folk") ) 
-			{
+			if (res.contains("folk") || 
+					res.contains("Folk") ) {
+
 				value = 1;
 			}
 		} catch (CannotReadException e) {
@@ -55,20 +54,20 @@ public class FolkEval implements Evaluator {
 	public void setId(int id) {
 		FolkEval.id = id;
 		// CREATE THE BAYESIAN TABLE
-		BT = new BayesianTable(5,5,5, id);
-		for(int i = 0 ; i<5 ; i++){
-			for (int j = 0; j<5; j++ ){
-				for (int k = 0; k<5; k++){
-
-					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j, k);
+		BT = new BayesianTable(6,6,6, id);
+		for(int i = 0 ; i<(BT.bayesMat.length) ; i++){
+			for (int j = 0; j<(BT.bayesMat[0].length); j++ ){
+				for (int k = 0; k<(BT.bayesMat[0][0].length); k++){
+					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j , k);
 				}
 			}
 		}
 	}
+
 	private float distanceToRef(int i, int j, int k){
-		float x = ((float) i)/BT.bayesMat.length;
-		float y = ((float) j)/BT.bayesMat[0].length;
-		float z = ((float) j)/BT.bayesMat[0][0].length;
+		float x = ((float) i)/(BT.bayesMat.length);
+		float y = ((float) j)/(BT.bayesMat[0].length);
+		float z = ((float) k)/(BT.bayesMat[0][0].length);
 		float res = 0;
 		res+= Math.pow(REFERENCE_PEAK_VALUE - x, 2);
 		res+= Math.pow(REFERENCE_SPEED_VALUE - y, 2);
@@ -82,5 +81,4 @@ public class FolkEval implements Evaluator {
 	public BayesianTable getBayesTable() {
 		return FolkEval.BT;
 	}
-
 }

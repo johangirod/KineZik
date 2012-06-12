@@ -21,9 +21,8 @@ public class KineZikApplication extends Application {
 	public void onCreate(){
 		super.onCreate();
 		Log.d("DEBUG", "Creating KineZik Application");
-		Intent intent = new Intent(this, DataWebService.class);
 		Message.setUUID(AndroidUUID.id(this));
-		startService(intent);
+
 	}
 	
 }

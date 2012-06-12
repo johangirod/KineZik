@@ -14,9 +14,9 @@ public class AmbientEval implements Evaluator {
 
 
 	//Reference values for the typical point
-	private final static float REFERENCE_PEAK_VALUE = (float) 0.2;
-	private final static float REFERENCE_SPEED_VALUE = (float) 0.27;
-	private final static float REFERENCE_LENGTH_VALUE = (float) 0.41;
+	private final static float REFERENCE_PEAK_VALUE = (float) 0.1;
+	private final static float REFERENCE_SPEED_VALUE = (float) 0.23;
+	private final static float REFERENCE_LENGTH_VALUE = (float) 0.23;
 
 
 
@@ -29,7 +29,7 @@ public class AmbientEval implements Evaluator {
 			String res = StringTag.getStringGenres(mp3);
 			System.out.println("GENRE : "+ res);
 			if (res.contains("Ambient") || 
-					res.contains("Ambient") ) {
+					res.contains("ambient") ) {
 
 				value = 1;
 			}
@@ -54,10 +54,11 @@ public class AmbientEval implements Evaluator {
 	public void setId(int id) {
 		AmbientEval.id = id;
 		// CREATE THE BAYESIAN TABLE
-		BT = new BayesianTable(5,5,5, id);
-		for(int i = 0 ; i<5 ; i++){
-			for (int j = 0; j<5; j++ ){
-				for (int k = 0; k<5; k++){
+
+		BT = new BayesianTable(6,6,6, id);
+		for(int i = 0 ; i<(BT.bayesMat.length) ; i++){
+			for (int j = 0; j<(BT.bayesMat[0].length); j++ ){
+				for (int k = 0; k<(BT.bayesMat[0][0].length); k++){
 					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j , k);
 				}
 			}
@@ -65,9 +66,9 @@ public class AmbientEval implements Evaluator {
 	}
 
 	private float distanceToRef(int i, int j, int k){
-		float x = ((float) i)/BT.bayesMat.length;
-		float y = ((float) j)/BT.bayesMat[0].length;
-		float z = ((float) j)/BT.bayesMat[0][0].length;
+		float x = ((float) i)/(BT.bayesMat.length-1);
+		float y = ((float) j)/(BT.bayesMat[0].length-1);
+		float z = ((float) k)/(BT.bayesMat[0][0].length-1);
 		float res = 0;
 		res+= Math.pow(REFERENCE_PEAK_VALUE - x, 2);
 		res+= Math.pow(REFERENCE_SPEED_VALUE - y, 2);

@@ -44,6 +44,8 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 	Button playButton;
 	Button nextButton;
 	SongAdapter adapter;
+	
+	/******************METHOD FOR MANAGING THE LIFECYCLE OF THE ACTIVITY ************************/
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,33 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 				Context.BIND_AUTO_CREATE);
 	}
 
+	@Override
+	protected void onPause() {
+		Log.d("TRACE", "on pause called for PlayerActivity");
+		Intent i = new Intent(getApplication(),FeedbackUploadService.class);
+		startService(i);
+		super.onPause();
+	}
+
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		SharedPreferences.Editor editor = getSharedPreferences("previousDraw",0).edit();
+		editor.putBoolean("drawing", false);
+		// Unbind from the service
+		if (serviceBound) {
+			unbindService(mConnection);
+			serviceBound = false;
+		}
+		if(playerBound){
+			unbindService(playerConnection);
+		}
+	}
+
+	
+	
+	
 	ArrayList<LocalSong> songs;
 
 	@Override
@@ -98,6 +127,8 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 		}
 	}
 
+	
+	/**************************METHOD FOR THE DIFFERENT UI COMPONENT OF THE ACTIVITY ********************/
 	public boolean pause = false;
 	public void onPushPlay(View v){
 		if(player != null){
@@ -109,7 +140,18 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 		}
 	}
 
+	public void previousDrawing (View v) {
+		SharedPreferences settings = getSharedPreferences("previousDraw",0);
+		if (settings.getBoolean("drawing", true)) {
+			onBackPressed();
+		}
+		else {
+			((Button) findViewById(R.id.button1)).setVisibility(View.GONE);
+		}
 
+	}
+
+	
 	public void onPushNext(View v){
 		if (songs.isEmpty()){
 			Toast.makeText(this, "il n'y a plus de musique à jouer", Toast.LENGTH_LONG).show();
@@ -171,39 +213,6 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 	}
 
 
-	@Override
-	protected void onPause() {
-		Log.d("TRACE", "on pause called for PlayerActivity");
-		Intent i = new Intent(getApplication(),FeedbackUploadService.class);
-		startService(i);
-		super.onPause();
-	}
-
-	public void previousDrawing (View v) {
-		SharedPreferences settings = getSharedPreferences("previousDraw",0);
-		if (settings.getBoolean("drawing", true)) {
-			onBackPressed();
-		}
-		else {
-			((Button) findViewById(R.id.button1)).setVisibility(View.GONE);
-		}
-
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		SharedPreferences.Editor editor = getSharedPreferences("previousDraw",0).edit();
-		editor.putBoolean("drawing", false);
-		// Unbind from the service
-		if (serviceBound) {
-			unbindService(mConnection);
-			serviceBound = false;
-		}
-		if(playerBound){
-			unbindService(playerConnection);
-		}
-	}
 
 
 	/**
@@ -243,18 +252,18 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 
 	@Override
 	public void onPlayerLoading() {
-		playButton.setBackgroundResource(R.drawable.kicon_pause);
+		playButton.setBackgroundResource(R.drawable.kicon_pause_v2);
 
 	}
 
 	@Override
 	public void onPlayerPaused() {
-		playButton.setBackgroundResource(R.drawable.kicon_lect);
+		playButton.setBackgroundResource(R.drawable.kicon_lect_v2);
 	}
 
 	@Override
 	public void onPlayerPlay() {
-		playButton.setBackgroundResource(R.drawable.kicon_pause);
+		playButton.setBackgroundResource(R.drawable.kicon_pause_v2);
 
 	}
 

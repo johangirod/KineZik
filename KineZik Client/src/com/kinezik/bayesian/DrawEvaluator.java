@@ -47,15 +47,16 @@ public class DrawEvaluator {
 				// Evaluation du dessin
 				Float evDraw = EvalDrawing.get(idEv);
 				if (evDraw == null) {
-					evDraw = (float) 0.5;
+					evDraw = (float) 0.0;
 				}
 				// Evaluation de la chanson
 				Float evSong = curSong.getEvaluation(idEv);
 				if (evSong == null) {
-					evSong = (float) 0.5;
+					evSong = (float) 0.0;
 				}
-				evalSong = evalSong + evSong * evDraw;
+				evalSong = evalSong + (evSong*2-1) * (evDraw*2-1);
 			}
+			evalSong = (evalSong+1)/2;
 			Log.d("DRAWEVALUATOR", "DrawEvaluator : l'evaluation de la chanson " + curSong.toJSONString() + 
 					" vaut " + evalSong);
 			curSong.setFit(evalSong);

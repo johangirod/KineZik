@@ -148,8 +148,8 @@ public class SongDAO {
 				isInList = !corresponds;
 			}
 			if(!isInList){
-				db.rawQuery("DELETE FROM Evaluations WHERE idSong = ? ;", new String[]{String.valueOf(cur.getInt(0))});
-				db.rawQuery("DELETE FROM Songs WHERE id = ? ;", new String[]{String.valueOf(cur.getInt(0))});
+				db.delete("Evaluations", "idSong = ?", new String[]{String.valueOf(cur.getInt(0))});
+				db.delete("Songs" , "id = ? ;", new String[]{String.valueOf(cur.getInt(0))});
 			}
 		} while  (cur.moveToNext());
 		db.close();

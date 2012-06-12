@@ -92,7 +92,7 @@ public class DataWebService extends IntentService implements BayesReceiver, Song
 	public void onBayesReceive(String JSONBayesTable) {
 		BayesianDAO bayes = new BayesianDAO(getApplication());
 		bayes.storeBayesianTables(JSONBayesTable);
-		Log.d("DEBUG", "Les tables de Bayes ont été mise à jour");
+		Log.d("DEBUG", "Les tables de Bayes ont été mise à jour : " + JSONBayesTable);
 	}
 
 	@Override

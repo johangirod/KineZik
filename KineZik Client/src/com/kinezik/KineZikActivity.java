@@ -18,6 +18,7 @@ import com.kinezik.music.MusicManager;
 
 import com.kinezik.network.Message;
 import com.kinezik.player.PlayerActivity;
+import com.kinezik.services.DataWebService;
 import com.kinezik.services.KineZikService;
 import com.kinezik.services.KineZikService.LocalBinder;
 
@@ -57,6 +58,11 @@ public class KineZikActivity extends Activity {
 	@Override
 	public void onStart(){
 		super.onStart();
+
+		Intent intent = new Intent(this, DataWebService.class);
+		startService(intent);
+		
+		
 		SharedPreferences settings = getSharedPreferences("previousDraw",0);
 
 		Log.d("DEBUG", "Dans Menu, ApplicationResumed vaut " +
@@ -73,6 +79,7 @@ public class KineZikActivity extends Activity {
 					Context.BIND_AUTO_CREATE);
 		} else {
 			((Button) findViewById(R.id.button1)).setVisibility(View.GONE);
+			((TextView) findViewById(R.id.TextView01)).setVisibility(View.GONE);
 		}
 	}
 

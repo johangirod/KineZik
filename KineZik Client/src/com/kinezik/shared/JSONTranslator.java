@@ -46,7 +46,7 @@ public class JSONTranslator {
 		Iterator<?> iter = list.keys();
 		while(iter.hasNext()){
 			String key =  (String) iter.next();
-			tables.put(Integer.parseInt(key), new BayesianTable(list.getJSONObject(key).toString()));
+			tables.put(Integer.parseInt(key), new BayesianTable(list.getString(key)));
 		}
 		return tables;
 	}

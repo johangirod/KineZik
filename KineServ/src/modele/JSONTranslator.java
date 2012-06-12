@@ -54,7 +54,7 @@ public class JSONTranslator {
 		Iterator<Map.Entry<Integer, BayesianTable>> iter = tables.entrySet().iterator();
 		while(iter.hasNext()){
 			Map.Entry<Integer, BayesianTable> current = iter.next();
-			list.put(JSONObject.numberToString(current.getKey()), current.getValue().toJSONString());
+			list.put(current.getKey().toString(), current.getValue().toJSONString());
 		}
 		return list.toString();
 	}

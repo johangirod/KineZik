@@ -15,8 +15,8 @@ public class MetalEval implements Evaluator {
 
 	//Reference values for the typical point
 	private final static float REFERENCE_PEAK_VALUE = (float) 0.69;
-	private final static float REFERENCE_SPEED_VALUE = (float) 0.64;
-	private final static float REFERENCE_LENGTH_VALUE = (float) 0.75;
+	private final static float REFERENCE_SPEED_VALUE = (float) 0.80;
+	private final static float REFERENCE_LENGTH_VALUE = (float) 0.80;
 
 	public MetalEval(){
 
@@ -57,20 +57,20 @@ public class MetalEval implements Evaluator {
 	public void setId(int id) {
 		MetalEval.id = id;
 		// CREATE THE BAYESIAN TABLE
-		BT = new BayesianTable(5,5,5, id);
-		for(int i = 0 ; i<5 ; i++){
-			for (int j = 0; j<5; j++ ){
-				for (int k = 0; k<5; k++){
-					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j, k);
+		BT = new BayesianTable(6,6,6, id);
+		for(int i = 0 ; i<(BT.bayesMat.length) ; i++){
+			for (int j = 0; j<(BT.bayesMat[0].length); j++ ){
+				for (int k = 0; k<(BT.bayesMat[0][0].length); k++){
+					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j , k);
 				}
 			}
 		}
 	}
 	
 	private float distanceToRef(int i, int j, int k){
-		float x = ((float) i)/BT.bayesMat.length;
-		float y = ((float) j)/BT.bayesMat[0].length;
-		float z = ((float) j)/BT.bayesMat[0][0].length;
+		float x = ((float) i)/(BT.bayesMat.length);
+		float y = ((float) j)/(BT.bayesMat[0].length);
+		float z = ((float) k)/(BT.bayesMat[0][0].length);
 		float res = 0;
 		res+= Math.pow(REFERENCE_PEAK_VALUE - x, 2);
 		res+= Math.pow(REFERENCE_SPEED_VALUE - y, 2);

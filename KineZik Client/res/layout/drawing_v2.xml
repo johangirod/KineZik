@@ -61,18 +61,20 @@
             android:layout_height="match_parent"
             android:gravity="left" >
 
-            <Button
+            <ImageButton
                 android:id="@+id/button1"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/erase1"
+                android:padding="8dp"
+                android:background="@color/transparentbutton"
+                android:src="@drawable/kicon_discard_v2"
                 android:onClick="reset" />
 
             <Button
                 android:id="@+id/descButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:onClick="showDesc"
                 android:text="descriptors" />
         </LinearLayout>

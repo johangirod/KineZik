@@ -46,9 +46,9 @@ public class SongDAO extends AbstractDataBaseDAO {
 			conn = super.getConnection();
 			java.sql.PreparedStatement pst = conn.prepareStatement("select Id,Genre from AnalyzedSongs WHERE "+
 					"(Artist = ? AND Album = ? AND Title = ?);");
-			pst.setString(1, StringTransfo.escape(song.getArtist()));
-			pst.setString(2, StringTransfo.escape(song.getAlbum()));
-			pst.setString(3, StringTransfo.escape(song.getTitle()));
+			pst.setString(1, song.getArtist());
+			pst.setString(2, song.getAlbum());
+			pst.setString(3, song.getTitle());
 			rs = pst.executeQuery();
 			//System.out.println("OK jusque là \n");
 			if (!rs.next()) {
