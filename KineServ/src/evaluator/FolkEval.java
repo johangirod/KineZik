@@ -7,9 +7,9 @@ import entagged.audioformats.AudioFile;
 import entagged.audioformats.AudioFileIO;
 import entagged.audioformats.exceptions.CannotReadException;
 
-public class RockEval implements Evaluator {
+public class FolkEval implements Evaluator {
 
-	private static final String name = "Rock Evaluator";
+	private static final String name = "Folk Evaluator";
 	private static int id;
 	private static BayesianTable BT;
 
@@ -22,8 +22,8 @@ public class RockEval implements Evaluator {
 			mp3 = AudioFileIO.read(mp3File);
 			String res = StringTag.getStringGenres(mp3);
 			System.out.println("GENRE : "+ res);
-			if (res.contains("Rock") || 
-					res.contains("rock") ) 
+			if (res.contains("Folk") || 
+					res.contains("folk") ) 
 			{
 				value = 1;
 			}
@@ -46,7 +46,7 @@ public class RockEval implements Evaluator {
 
 	@Override
 	public void setId(int id) {
-		RockEval.id = id;
+		FolkEval.id = id;
 		// CREATE THE BAYESIAN TABLE
 		BayesianTable BT = new BayesianTable(5,5,5, id);
 		for(int i = 0 ; i<5 ; i++){
@@ -56,12 +56,12 @@ public class RockEval implements Evaluator {
 				}
 			}
 		}
-		RockEval.BT = BT;
+		FolkEval.BT = BT;
 	}
 
 	@Override
 	public BayesianTable getBayesTable() {
-		return RockEval.BT;
+		return FolkEval.BT;
 	}
 
 }

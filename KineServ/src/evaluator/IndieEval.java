@@ -23,9 +23,10 @@ public class IndieEval implements Evaluator {
 		AudioFile mp3;
 		try {
 			mp3 = AudioFileIO.read(mp3File);
-			System.out.println("GENRE : "+ mp3.getTag().getFirstGenre());
-			if (mp3.getTag().getFirstGenre().contains("indie") || 
-					mp3.getTag().getFirstGenre().contains("Indie") ) 
+			String res = StringTag.getStringGenres(mp3);
+			System.out.println("GENRE : "+ res);
+			if (res.contains("indie") || 
+					res.contains("Indie") ) 
 			{
 				value = 1;
 			}
