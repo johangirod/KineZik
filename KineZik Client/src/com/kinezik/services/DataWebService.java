@@ -46,7 +46,7 @@ public class DataWebService extends IntentService implements BayesReceiver, Song
 		Log.d("DEBUG", "Intent received by DataWebService");
 		songSynced = false;
 		getSongEvaluation();
-		//getBayesTable();
+		getBayesTable();
 		//			// Le service dort pendant 500 secondes
 		//			long endTime = System.currentTimeMillis() + 50*10000;
 		//			while (System.currentTimeMillis() < endTime) {
