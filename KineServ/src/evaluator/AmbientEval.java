@@ -7,18 +7,17 @@ import entagged.audioformats.AudioFile;
 import entagged.audioformats.AudioFileIO;
 import entagged.audioformats.exceptions.CannotReadException;
 
-public class RockEval implements Evaluator {
-
-	private static final String name = "Rock Evaluator";
+public class AmbientEval implements Evaluator {
+	private static final String name = "Ambient Evaluator";
 	private static int id;
 	private static BayesianTable BT;
-	
-	//Reference values for the typical point
-	private final static float REFERENCE_PEAK_VALUE = (float) 0.47;
-	private final static float REFERENCE_SPEED_VALUE = (float) 0.33;
-	private final static float REFERENCE_LENGTH_VALUE = (float) 0.62;
 
-	public RockEval(){
+	//Reference values for the typical point
+	private final static float REFERENCE_PEAK_VALUE = (float) 0.2;
+	private final static float REFERENCE_SPEED_VALUE = (float) 0.27;
+	private final static float REFERENCE_LENGTH_VALUE = (float) 0.41;
+
+	public AmbientEval(){
 
 	}
 
@@ -29,8 +28,8 @@ public class RockEval implements Evaluator {
 		try {
 			mp3 = AudioFileIO.read(mp3File);
 			System.out.println("GENRE : "+ mp3.getTag().getFirstGenre());
-			if (mp3.getTag().getFirstGenre().contains("Rock") || 
-					mp3.getTag().getFirstGenre().contains("rock") ) 
+			if (mp3.getTag().getFirstGenre().contains("Ambient") || 
+					mp3.getTag().getFirstGenre().contains("ambient") ) 
 			{
 				value = 1;
 			}
@@ -53,17 +52,17 @@ public class RockEval implements Evaluator {
 
 	@Override
 	public void setId(int id) {
-		RockEval.id = id;
+		AmbientEval.id = id;
 		// CREATE THE BAYESIAN TABLE
 		BayesianTable BT = new BayesianTable(5,5,5, id);
 		for(int i = 0 ; i<5 ; i++){
 			for (int j = 0; j<5; j++ ){
 				for (int k = 0; k<5; k++){
-					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j, k);
+					BT.bayesMat[i][j][k] = 1 - distanceToRef(i, j , k);
 				}
 			}
 		}
-		RockEval.BT = BT;
+		AmbientEval.BT = BT;
 	}
 	
 	private float distanceToRef(int i, int j, int k){
@@ -81,7 +80,6 @@ public class RockEval implements Evaluator {
 
 	@Override
 	public BayesianTable getBayesTable() {
-		return RockEval.BT;
+		return AmbientEval.BT;
 	}
-
 }

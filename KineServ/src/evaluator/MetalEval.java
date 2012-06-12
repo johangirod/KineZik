@@ -7,18 +7,18 @@ import entagged.audioformats.AudioFile;
 import entagged.audioformats.AudioFileIO;
 import entagged.audioformats.exceptions.CannotReadException;
 
-public class RockEval implements Evaluator {
+public class MetalEval implements Evaluator {
 
-	private static final String name = "Rock Evaluator";
+	private static final String name = "Metal Evaluator";
 	private static int id;
 	private static BayesianTable BT;
-	
-	//Reference values for the typical point
-	private final static float REFERENCE_PEAK_VALUE = (float) 0.47;
-	private final static float REFERENCE_SPEED_VALUE = (float) 0.33;
-	private final static float REFERENCE_LENGTH_VALUE = (float) 0.62;
 
-	public RockEval(){
+	//Reference values for the typical point
+	private final static float REFERENCE_PEAK_VALUE = (float) 0.69;
+	private final static float REFERENCE_SPEED_VALUE = (float) 0.64;
+	private final static float REFERENCE_LENGTH_VALUE = (float) 0.75;
+
+	public MetalEval(){
 
 	}
 
@@ -29,8 +29,8 @@ public class RockEval implements Evaluator {
 		try {
 			mp3 = AudioFileIO.read(mp3File);
 			System.out.println("GENRE : "+ mp3.getTag().getFirstGenre());
-			if (mp3.getTag().getFirstGenre().contains("Rock") || 
-					mp3.getTag().getFirstGenre().contains("rock") ) 
+			if (mp3.getTag().getFirstGenre().contains("Metal") || 
+					mp3.getTag().getFirstGenre().contains("metal") ) 
 			{
 				value = 1;
 			}
@@ -53,7 +53,7 @@ public class RockEval implements Evaluator {
 
 	@Override
 	public void setId(int id) {
-		RockEval.id = id;
+		MetalEval.id = id;
 		// CREATE THE BAYESIAN TABLE
 		BayesianTable BT = new BayesianTable(5,5,5, id);
 		for(int i = 0 ; i<5 ; i++){
@@ -63,7 +63,7 @@ public class RockEval implements Evaluator {
 				}
 			}
 		}
-		RockEval.BT = BT;
+		MetalEval.BT = BT;
 	}
 	
 	private float distanceToRef(int i, int j, int k){
@@ -81,7 +81,6 @@ public class RockEval implements Evaluator {
 
 	@Override
 	public BayesianTable getBayesTable() {
-		return RockEval.BT;
+		return MetalEval.BT;
 	}
-
 }
