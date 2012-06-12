@@ -75,7 +75,7 @@ public class FolkEval implements Evaluator {
 		res+= Math.pow(REFERENCE_LENGTH_VALUE - z, 2);
 		res /= 3;//to normalize
 		res = (float) Math.sqrt(res);
-		return 0;
+		return res;
 	}
 
 	@Override
