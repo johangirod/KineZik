@@ -42,6 +42,7 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 
 	ListView songList;
 	Button playButton;
+	Button nextButton;
 	SongAdapter adapter;
 
 	@Override
@@ -72,10 +73,11 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 				public void run(){
 					setContentView(R.layout.music);
 					playButton = (Button) findViewById(R.id.playButton);
+					nextButton = (Button) findViewById(R.id.nextButton);
 					songList = (ListView) findViewById(R.id.songList);
 					songs = new ArrayList<LocalSong>();
 
-					for(int i = 0; i < 5 ; i++){
+					for(int i = 0; i < 8 ; i++){
 						LocalSong curSong = kinezikService.getNextSong();
 						if (curSong == null){
 							break;
@@ -130,7 +132,7 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 			}
 		}
 		if(songs.size()==1){
-			v.setVisibility(View.INVISIBLE);//If there is only one song left, hide the "next" button
+			nextButton.setVisibility(View.INVISIBLE);//If there is only one song left, hide the "next" button
 		}
 		adapter.notifyDataSetChanged();
 	}
@@ -145,8 +147,7 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 		if (position != 0){
 			LocalSong song = songs.remove(position);
 			songs.add(1, song);
-			SongAdapter adapter = new SongAdapter(PlayerActivity.this, songs);
-			songList.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
 		}
 	}
 
@@ -166,8 +167,7 @@ public class PlayerActivity extends Activity implements ServiceListener, PlayerL
 			if (song != null){
 				songs.add(song);
 			}
-			SongAdapter adapter = new SongAdapter(PlayerActivity.this, songs);
-			songList.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
 		}
 	}
 
