@@ -51,7 +51,7 @@ public class KineZikActivity extends Activity {
 		setContentView(R.layout.menu);
 		view = (TextView) findViewById(R.id.textView1);
 
-		
+
 
 	}
 
@@ -61,17 +61,17 @@ public class KineZikActivity extends Activity {
 
 		Intent intent = new Intent(this, DataWebService.class);
 		startService(intent);
-		
-		
+
+
 		SharedPreferences settings = getSharedPreferences("previousDraw",0);
 
 		Log.d("DEBUG", "Dans Menu, ApplicationResumed vaut " +
 				settings.getBoolean("ApplicationResumed", false));
-		        settings.getBoolean("drawing", false);
-
+		settings.getBoolean("drawing", false);
 		if (settings.getBoolean("ApplicationResumed", false)){
+			((Button) findViewById(R.id.button1)).setVisibility(View.VISIBLE);
+			((TextView) findViewById(R.id.TextView01)).setVisibility(View.VISIBLE);
 			// Si l'application est résumé, et qu'il y a une "playlist" en memoire"
-			((Button) findViewById(R.id.button1)).setVisibility(View.INVISIBLE);
 			desc1 = settings.getFloat("desc1", (float) 0.5);
 			desc2 = settings.getFloat("desc2", (float) 0.5);
 			desc3 = settings.getFloat("desc3", (float) 0.5);
@@ -104,7 +104,6 @@ public class KineZikActivity extends Activity {
 			mBound = true;
 			kinezikService = ((LocalBinder) service).getService();
 
-			((Button) findViewById(R.id.button1)).setVisibility(View.VISIBLE);
 
 		}
 

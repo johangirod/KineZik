@@ -14,9 +14,9 @@ public class MetalEval implements Evaluator {
 	private static BayesianTable BT;
 
 	//Reference values for the typical point
-	private final static float REFERENCE_PEAK_VALUE = (float) 0.69;
-	private final static float REFERENCE_SPEED_VALUE = (float) 0.80;
-	private final static float REFERENCE_LENGTH_VALUE = (float) 0.80;
+	private final static float REFERENCE_PEAK_VALUE = (float) 0.60;
+	private final static float REFERENCE_SPEED_VALUE = (float) 0.90;
+	private final static float REFERENCE_LENGTH_VALUE = (float) 0.90;
 
 	public MetalEval(){
 

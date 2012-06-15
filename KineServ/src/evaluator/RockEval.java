@@ -15,7 +15,7 @@ public class RockEval implements Evaluator {
 	
 	//Reference values for the typical point
 	private final static float REFERENCE_PEAK_VALUE = (float) 0.35;
-	private final static float REFERENCE_SPEED_VALUE = (float) 0.60;
+	private final static float REFERENCE_SPEED_VALUE = (float) 0.80;
 	private final static float REFERENCE_LENGTH_VALUE = (float) 0.50;
 
 

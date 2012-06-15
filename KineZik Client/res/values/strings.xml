@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, KineZikActivity!</string>
-    <string name="app_name">KineZik Client</string>
+    <string name="app_name">KineZik</string>
     <string name="drawing_invitation">Touch the screen to start drawing</string>
    
     
